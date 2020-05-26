@@ -1,7 +1,7 @@
 #!/bin/bash
-# Copyright 2020 The bash-boilerplate Authors. All rights reserved.
-# Use of this source code is governed by Apache
-# license that can be found in the LICENSE file.
+# Copyright 2020 Liudng. All rights reserved.
+# Use of this source code is governed by Apache License
+# that can be found in the LICENSE file.
 
 # trace ERR through pipes
 set -o pipefail
@@ -18,19 +18,30 @@ declare -gr dev_global_self="$(realpath $0)"
 # The dev execution base path
 declare -gr dev_global_base="$(dirname $(dirname $dev_global_self))"
 
+cmd_body() {
+    #
+    # Write your code here.
+    #
+    echo "This is a sample bash script."
+    echo "Custom arguments: $@"
+}
+
 dev_kernel_help_usage() {
-    echo "Usage: $dev_global_project [--trace] [--verbose] <cmd-file> <cmd-function>"
-    echo "           [cmd-arguments...]"
-    echo "       $dev_global_project [--help] [--version]"
+    echo "Usage: $(basename $dev_global_self) [--trace] [--verbose] [custom-arguments...]"
+    echo "       $(basename $dev_global_self) [--help] [--version]"
     echo ""
     echo "Optional arguments:"
+    echo "  --help             Help topic and usage information"
     echo "  --trace            Print command traces before executing command"
     echo "  --verbose          Produce more output about what the program does"
     echo "  --version          Output version information and exit"
-    echo "  --help             Help topic and usage information"
+
+    #
+    # Append your custom help here.
+    #
 }
 
-main() {
+dev_kernel_optional_arguments() {
     case "$1" in
         --help)
             dev_kernel_help_usage
@@ -41,20 +52,30 @@ main() {
             exit 0
             ;;
         --trace)
-            set -o xtrace
+            declare -gr dev_global_trace="1"
             ;;
         --verbose)
             declare -gr dev_global_verbose="1"
             ;;
+
+        #
+        # Add your custom optional arguments here.
+        #
+
         *)
-            # Optional argument not found
+            echo "Optional argument not found: $1" >&2
             ;;
     esac
-
-    #
-    # Write your code here.
-    #
-    echo "This is a sample bash script."
 }
 
-main $@
+dev_main() {
+    while [[ $# -gt 0 && "${1:0:1}" == "-" ]]; do
+        dev_kernel_optional_arguments "$1"
+        shift
+    done
+
+    [[ "$dev_global_trace" -eq "1" ]] && set -o xtrace
+    cmd_body $@
+}
+
+dev_main $@
