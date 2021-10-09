@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2020 Liu Dng. All rights reserved.
+# Copyright 2021 Liu Dng. All rights reserved.
 # Use of this source code is governed by Apache License
 # that can be found in the LICENSE file.
 
@@ -10,13 +10,15 @@ set -o pipefail
 set -o errexit
 
 # The dev package version
-declare -gr dev_global_version="1.0.0"
+declare -gr dev_global_version="1.1.0"
 
 # The dev execution file path
 declare -gr dev_global_self="$(realpath $0)"
 
 # The dev execution base path
 declare -gr dev_global_base="$(dirname $(dirname $dev_global_self))"
+
+declare -g dev_command
 
 declare -g dev_arg_key
 
@@ -65,6 +67,8 @@ dev_kernel_optional_arguments() {
 }
 
 dev_main() {
+    dev_command="body"
+
     while [[ $# -gt 0 && "${1:0:1}" == "-" ]]; do
         dev_kernel_optional_arguments "$1"
         shift
@@ -73,5 +77,5 @@ dev_main() {
     dev_custom_validation
 
     [[ "$dev_global_trace" -eq "1" ]] && set -o xtrace
-    cmd_body $@
+    cmd_$dev_command $@
 }

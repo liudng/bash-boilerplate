@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2020 Liu Dng. All rights reserved.
+# Copyright 2021 Liu Dng. All rights reserved.
 # Use of this source code is governed by Apache License
 # that can be found in the LICENSE file.
 
@@ -10,7 +10,7 @@ set -o pipefail
 set -o errexit
 
 # The dev package version
-declare -gr dev_global_version="1.0.0"
+declare -gr dev_global_version="1.1.0"
 
 # The dev execution file path
 declare -gr dev_global_self="$(realpath $0)"

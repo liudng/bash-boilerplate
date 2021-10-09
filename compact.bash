@@ -1,36 +1,37 @@
 #!/bin/bash
-# Copyright 2020 Liu Dng. All rights reserved.
+# Copyright 2021 Liu Dng. All rights reserved.
 # Use of this source code is governed by Apache License
 # that can be found in the LICENSE file.
 
-. lib/framework.bash
+. $(dirname $(realpath $0))/lib/framework.bash
 
 #
 # Declare custom global variables
 #
 
 
+#
+# Write your own source code here.
+#
 cmd_body() {
-    #
-    # Write your own source code here.
-    #
     echo "This is a sample bash script."
     echo "--key = $demo_key"
     echo "Custom arguments: $@"
+    echo "dev_global_base: $dev_global_base"
 }
 
+#
+# Append your custom help here.
+#
 dev_custom_help_usage() {
-    #
-    # Append your custom help here.
-    #
     echo "  --key=value        Example key and value"
 }
 
+#
+# Add custom optional arguments here.
+#
 dev_custom_optional_arguments() {
     case "$dev_arg_key" in
-        #
-        # Add custom optional arguments here.
-        #
         --key)
             declare -gr demo_key="$dev_arg_val"
             ;;
