@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2021 Liu Dng. All rights reserved.
+# Copyright 2021 Liu Dong <liudng@hotmail.com>. All rights reserved.
 # Use of this source code is governed by Apache License
 # that can be found in the LICENSE file.
 
